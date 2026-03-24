@@ -1,6 +1,6 @@
 'use client';
 
-import React, { SubmitEvent } from "react";
+import React, { SubmitEvent, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 // import { useRouter } from "next/router";
@@ -11,6 +11,17 @@ export default function Login() {
     const [password, setPassword] = React.useState("");
     const [message, setMessage] = React.useState("");
     const router = useRouter();
+    const usernameRef = React.useRef<HTMLInputElement>(null);
+
+    console.log("Login redered");
+
+    useEffect(() => {
+        console.log("Login mounted");
+        usernameRef.current?.focus();
+        return () => {
+            console.log("Login unmounted");
+        }
+    }, []);
 
     async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -80,7 +91,9 @@ export default function Login() {
             <form onSubmit={handleLogin}>
                 <div className="form-group">
                     <label htmlFor="username">User Name</label>
-                    <input type="username" className="form-control" id="username" placeholder="User Id"
+                    <input
+                     ref={usernameRef}
+                     type="username" className="form-control" id="username" placeholder="User Id"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />

@@ -1,12 +1,16 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 
 export default function Counter(props: { count?: number }) {
 
     const [count, setCount] = useState(props.count || 0);
     const inputRef = React.useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        console.log("Count updated:", count);
+    }, [count]);
 
     function changeFun(evt: React.ChangeEvent<HTMLInputElement>) {
         console.log("Input changed...");
