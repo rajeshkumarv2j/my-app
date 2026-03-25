@@ -1,8 +1,11 @@
 'use client';
 
-import React, { SubmitEvent, useEffect } from "react";
+import React, { SubmitEvent, use, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useTitle } from "@/hooks/useTitle";
+import { refresh } from "next/cache";
+import { useDispatch } from "react-redux";
 // import { useRouter } from "next/router";
 
 export default function Login() {
@@ -22,6 +25,13 @@ export default function Login() {
             console.log("Login unmounted");
         }
     }, []);
+
+    const dispatch = useDispatch();
+
+    useTitle("Login Page");
+    // useEffect(() => {
+    //     document.title = document.title + `Login Page`;
+    // }, []);
 
     async function handleLogin(event: SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -64,10 +74,25 @@ export default function Login() {
             //change to async await syntax
             try {
                 const response = await axios.post("http://localhost:9000/login", { name: username, password: password });
+                console.log("Login response", response);
+                setMessage("");
+                dispatch({ type: "login", payload: {
+                    isAuthencated: true,
+                    username,
+                    accessToken: response.data.accessToken,
+                    refreshToken: response.data.refreshToken
+                } });
+
                 if (response.data.accessToken) {
                     setMessage("Login successful");
                     router.push("/");
                 } else {
+                    dispatch({ type: "logout", payload: {
+                        isAuthencated: false,
+                        username: "",
+                        accessToken: "",
+                        refreshToken: ""
+                    } });
                     setMessage("Invalid username or password");
                 }
             } catch (error) {

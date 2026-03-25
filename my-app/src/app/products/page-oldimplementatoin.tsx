@@ -6,15 +6,19 @@ import productStyles from "./products.module.css";
 import { useRouter } from "next/navigation";
 import { ProductView } from "./ProductView";
 import { useTitle } from "@/hooks/useTitle";
-import { useProducts } from "@/hooks/useProducts";
 
 export default function Products() {
 
+    const [products, setProducts] = useState<Product[]>([]);
     const router = useRouter();
     const [isMessageVisible, setIsMessageVisible] = useState(false);
     
-    const { products, fetchProducts, setProducts } = useProducts();
-    
+
+    useEffect(() => {
+            console.log("Products mounted");
+            fetchProducts();
+    }, []);
+
     // useEffect(() => {
     //         document.title = document.title + `Products Page`;
     //     }, []);
@@ -57,7 +61,15 @@ export default function Products() {
             }      
         }, [products]);
 
-        
+        async function fetchProducts(): Promise<void> {  
+            try {
+                const res = await axios.get<Product[]>("http://localhost:9000/products");
+                setProducts(res.data);
+                    console.log("fetched products", res.data);
+                } catch (err) {
+                    console.error("failed to fetch products", err);
+                }
+            };
         
 
         return (

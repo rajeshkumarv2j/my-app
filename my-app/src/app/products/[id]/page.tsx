@@ -40,6 +40,7 @@ export default function EditProduct() {
         <div>
             <h4>Edit Product</h4>
             <p>Editing product with ID: {params.id}</p>
+
             <div>
                 <form onSubmit={e=> {
                     e.preventDefault();
@@ -67,9 +68,10 @@ export default function EditProduct() {
                         <input type="text" id="imageUrl" name="imageUrl" value={product?.imageUrl || ""}
                             onChange={(e) => setProduct({ ...product, imageUrl: e.target.value })} />
                     </div>
-                    <button type="submit">Update Product</button>
+                    <button type="submit">Update Product</button> &nbsp;
+                    <button type="button" onClick={() => router.push("/products")}>Cancel</button>
                 </form>
-
+                
             </div>
         </div>
 
