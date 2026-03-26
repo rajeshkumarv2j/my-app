@@ -5,6 +5,8 @@ import AppBar from "@/components/AppBar";
 
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
+import ReduxProvider from "@/redux/ReduxProvider";
+import { AppThemeProvider } from "@/context/AppThemeContext";
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -20,14 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en" >
       <body className="min-h-full flex flex-col">
-        <Provider store={store}>
-        <div className="container">
-          <AppBar />
-            <main>
-              {children}
-            </main>
-        </div>
-        </Provider>
+        {/* <Provider store={store}> */}
+        <ReduxProvider>
+          <AppThemeProvider>
+          <div className="container">
+            <AppBar />
+            <main>{children}</main>
+          </div>
+          </AppThemeProvider>
+        </ReduxProvider>
+        {/* </Provider> */}
       </body>
     </html>
   );

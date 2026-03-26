@@ -51,22 +51,22 @@ export default function EditProduct() {
                     <div className="form-group">
                         <label htmlFor="name">Name:</label>
                         <input type="text" id="name" name="name" value={product?.name || ""}
-                            onChange={event1 => setProduct({...product, name: event1.target.value})} />
+                            onChange={e => product && setProduct({...product, name: e.target.value})} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="price">Price:</label>
                         <input type="number" id="price" name="price" value={product?.price || 0}
-                            onChange={(e) => setProduct({ ...product, price: parseFloat(e.target.value) || 0 })} />
+                            onChange={(e) => product && setProduct({ ...product, price: parseFloat(e.target.value) || 0 })} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Description:</label>
                         <textarea id="description" name="description" value={product?.description || ""}
-                            onChange={(e) => setProduct({ ...product, description: e.target.value })}></textarea>
+                            onChange={(e) => product && setProduct({ ...product, description: e.target.value })}></textarea>
                     </div>
                     <div className="form-group">
                         <label htmlFor="imageUrl">Image URL:</label>
                         <input type="text" id="imageUrl" name="imageUrl" value={product?.imageUrl || ""}
-                            onChange={(e) => setProduct({ ...product, imageUrl: e.target.value })} />
+                            onChange={(e) => product && setProduct({ ...product, imageUrl: e.target.value })} />
                     </div>
                     <button type="submit">Update Product</button> &nbsp;
                     <button type="button" onClick={() => router.push("/products")}>Cancel</button>

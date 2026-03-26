@@ -1,21 +1,28 @@
 'use client'
 import { useProducts } from '@/hooks/useProducts';
 
-import { Product } from '@/models/Product';
+import { AppDispatch } from '@/redux/store';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import App from 'next/app';
+import React, { use, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addToCart as addToStore} from '@/redux/gadgetsReducer';
 
 
 function GadgetStore(){
 
     const {products, setProducts} = useProducts();
-    
+    const dispath = useDispatch<AppDispatch>();
     
     
     
 
     function addToCart(product: Product): void {
-        
+        const action = addToStore({
+            product: product,
+            quantity: 1
+        });
+        dispath(action);
     }
 
     function renderProducts() {
