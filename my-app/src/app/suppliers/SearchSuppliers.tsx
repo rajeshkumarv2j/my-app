@@ -3,7 +3,7 @@
 import React from "react";
 
 type SearchSuppliersProps = {
-    data: Supplier
+    data: Supplier[]
 }
 
 export default function SearchSuppliers({ data }: SearchSuppliersProps) {
