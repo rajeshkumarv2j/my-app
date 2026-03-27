@@ -7,6 +7,7 @@ export default function Counter(props: { count?: number }) {
 
     const [count, setCount] = useState(props.count || 0);
     const inputRef = React.useRef<HTMLInputElement>(null);
+    let clickCount = 0;
 
     useEffect(() => {
         console.log("Count updated:", count);

@@ -19,7 +19,7 @@ export default function Hello(props: { message?: string; color?: string }) {
             <p> {calculateTotal()} </p>
             <p style={{ color: props.color }}>{props.message}</p>
             <Counter count={10} />
-            <Counter count={5} />
+            {/* <Counter count={5} /> */}
         </div>
     )
 }
